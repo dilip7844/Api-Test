@@ -1,8 +1,8 @@
 package com.example.myapplication
 
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -56,9 +56,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun getData() {
+        binding.progressbar.visibility = View.VISIBLE
         ApiClient().makeCall(
             this@MainActivity,
-            ApiClient.BASE_URL+"/photos",
+            ApiClient.BASE_URL + "/photos",
             object : ApiClient.OnApiResponse {
                 override fun onResponse(isSuccessfull: Boolean, root: String) {
                     if (isSuccessfull) {
@@ -81,6 +82,7 @@ class MainActivity : AppCompatActivity() {
                         "Failed to call the api",
                         Toast.LENGTH_SHORT
                     ).show()
+                    binding.progressbar.visibility = View.GONE
                 }
 
             })
